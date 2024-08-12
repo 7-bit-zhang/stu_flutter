@@ -35,7 +35,7 @@ class StText extends StatelessWidget {
     this.maxLines,
   }) : super(key: key);
 
-  // 命名构造函数
+  //   命名构造函数
   const StText.big(
     String? text, {
     Key? key,
