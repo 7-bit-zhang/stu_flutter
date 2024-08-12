@@ -70,12 +70,10 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
       DebouncedSearch(duration: const Duration(milliseconds: 100));
 
   void updateStatusBarBrightness(shrinkOffset) {
-    print(controller?.offset);
     if (shrinkOffset <= maxExtent / 2) {
       //&& statusBarMode == 'dark'
       statusBarMode = 'dark';
       debouncer.run(() {
-        print("dark======run");
         controller?.animateTo(0,
             duration: const Duration(milliseconds: 500), curve: Curves.ease);
       });
@@ -87,7 +85,6 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     } else if (shrinkOffset > maxExtent / 2) {
       // && statusBarMode == 'light'
       debouncer.run(() {
-        print("light======run");
         controller?.animateTo(maxExtent,
             duration: const Duration(milliseconds: 500), curve: Curves.ease);
       });
