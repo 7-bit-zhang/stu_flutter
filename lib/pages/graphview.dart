@@ -100,8 +100,6 @@ class _TreeViewPageState extends State<TreeViewPage> {
     ));
   }
 
-  Random r = Random();
-
   Widget rectangleWidget(int a) {
     return InkWell(
       onTap: () {
@@ -119,6 +117,8 @@ class _TreeViewPageState extends State<TreeViewPage> {
           child: Text('Node ${a}')),
     );
   }
+
+  Random r = Random();
 
   final Graph graph = Graph()..isTree = true;
   BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
