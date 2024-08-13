@@ -5,32 +5,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CustomSliverHeaderDemo extends StatelessWidget {
-  const CustomSliverHeaderDemo({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: SliverCustomHeaderDelegate(
-                title: '哪吒之魔童降世',
-                collapsedHeight: 40,
-                expandedHeight: 300,
-                paddingTop: MediaQuery.of(context).padding.top,
-                coverImgUrl: 'assets/images/dao.jpg'),
-          ),
-          SliverFillRemaining(
-            child: FilmContent(),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class DebouncedSearch {
   late Duration duration;
   Timer? _timer;
@@ -70,27 +44,51 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     return true;
   }
 
+  Widget _child() {
+    return Image.asset(
+      "assets/images/dao.jpg",
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: maxExtent,
+    );
+  }
+
+  Widget _child1(dynamic shrinkOffset) {
+    return Center(
+      child: Text(
+        "头部折叠起来了",
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: makeStickyHeaderTextColor(shrinkOffset, true),
+        ),
+      ),
+    );
+  }
+
   final debouncer =
       DebouncedSearch(duration: const Duration(milliseconds: 100));
 
   void updateStatusBarBrightness(shrinkOffset) {
+    print(makeStickyHeaderTitleAlpha(shrinkOffset));
+    print("${1 - makeStickyHeaderTitleAlpha(shrinkOffset)}");
     if (shrinkOffset <= maxExtent / 2) {
       //&& statusBarMode == 'dark'
       statusBarMode = 'dark';
       debouncer.run(() {
         controller?.animateTo(0,
-            duration: const Duration(milliseconds: 500), curve: Curves.ease);
+            duration: const Duration(milliseconds: 300), curve: Curves.ease);
       });
-
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
       ));
-    } else if (shrinkOffset > maxExtent / 2) {
+    } else if (shrinkOffset > maxExtent / 2 &&
+        shrinkOffset <= maxExtent - (paddingTop * 2.5)) {
       // && statusBarMode == 'light'
       debouncer.run(() {
-        controller?.animateTo(maxExtent,
-            duration: const Duration(milliseconds: 500), curve: Curves.ease);
+        controller?.animateTo(maxExtent - (paddingTop * 2.5),
+            duration: const Duration(milliseconds: 300), curve: Curves.ease);
       });
 
       statusBarMode = 'light';
@@ -100,6 +98,12 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
         statusBarIconBrightness: Brightness.light,
       ));
     }
+  }
+
+  double makeStickyHeaderTitleAlpha(shrinkOffset) {
+    final double alpha =
+        (shrinkOffset / (maxExtent - minExtent) * 1).clamp(0, 1).toDouble();
+    return alpha;
   }
 
   Color makeStickyHeaderBgColor(shrinkOffset) {
@@ -130,35 +134,15 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
         child: SafeArea(
           bottom: false,
           child: SizedBox(
-            height: collapsedHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: makeStickyHeaderTextColor(shrinkOffset, true),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: makeStickyHeaderTextColor(shrinkOffset, false),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.share,
-                    color: makeStickyHeaderTextColor(shrinkOffset, true),
-                  ),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
+              height: collapsedHeight,
+              child: Stack(children: [
+                Opacity(
+                    opacity: 1 - makeStickyHeaderTitleAlpha(shrinkOffset),
+                    child: _child()),
+                Opacity(
+                    opacity: makeStickyHeaderTitleAlpha(shrinkOffset),
+                    child: _child1(shrinkOffset)),
+              ])),
         ),
       ),
     );
