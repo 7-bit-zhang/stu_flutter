@@ -19,7 +19,9 @@ class MySliverApp extends StatelessWidget {
             collapsedHeight: 60,
             expandedHeight: 500,
             paddingTop: MediaQuery.of(context).padding.top,
-            expandedWidget: SizedBox(),
+            defaultCollapsedColor: Colors.black,
+            expandedWidget:
+                const Center(child: SizedBox(child: Text("123123123"))),
           ),
         ),
         SliverList.builder(
