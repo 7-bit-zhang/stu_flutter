@@ -15,12 +15,12 @@ class MySliverApp extends StatelessWidget {
         SliverPersistentHeader(
           pinned: true,
           delegate: SliverCustomHeaderDelegate(
-              title: "",
-              controller: controller,
-              collapsedHeight: 60,
-              expandedHeight: 500,
-              paddingTop: MediaQuery.of(context).padding.top,
-              coverImgUrl: ""),
+            controller: controller,
+            collapsedHeight: 60,
+            expandedHeight: 500,
+            paddingTop: MediaQuery.of(context).padding.top,
+            expandedWidget: SizedBox(),
+          ),
         ),
         SliverList.builder(
           itemBuilder: (context, index) {

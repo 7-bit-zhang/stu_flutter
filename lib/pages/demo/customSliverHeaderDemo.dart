@@ -17,21 +17,46 @@ class DebouncedSearch {
   }
 }
 
+/// 自定义顶部滑动
 class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  /// 折叠高度
   final double collapsedHeight;
+
+  /// 展开高度
   final double expandedHeight;
+
+  /// 顶部距离
   final double paddingTop;
-  final String coverImgUrl;
-  final String title;
-  String statusBarMode = 'dark';
+
+  /// 滚动控制器
   ScrollController? controller;
+
+  /// 折叠后显示组件
+  final Widget? collapsedWidget;
+
+  /// 展开后显示组件
+  final Widget expandedWidget;
+
+  /// 展开时的背景颜色 RGB
+  /// 分别为 RGB
+  final List<int>? expandedColors;
+
+  /// 折叠时的背景颜色 RGB
+  /// 分别为 RGB
+  final List<int>? collapsedColors;
+
+  /// 默认的折叠组件Title
+  final String? defaultCollapsedTitle;
   SliverCustomHeaderDelegate(
-      {required this.collapsedHeight,
+      {this.controller,
+      this.collapsedWidget,
+      this.collapsedColors,
+      this.expandedColors,
+      this.defaultCollapsedTitle,
+      required this.collapsedHeight,
       required this.expandedHeight,
       required this.paddingTop,
-      required this.coverImgUrl,
-      required this.title,
-      this.controller});
+      required this.expandedWidget});
 
   @override
   double get minExtent => collapsedHeight + paddingTop;
@@ -44,37 +69,31 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     return true;
   }
 
-  Widget _child() {
-    return Image.asset(
-      "assets/images/dao.jpg",
-      fit: BoxFit.cover,
-      width: double.infinity,
-      height: maxExtent,
-    );
-  }
+  ///防抖
+  /// 防抖动，防止多次触发
+  /// 100ms内只触发一次
+  final debouncer =
+      DebouncedSearch(duration: const Duration(milliseconds: 100));
 
-  Widget _child1(dynamic shrinkOffset) {
+  ///默认折叠组件
+  Widget _defaultCollapsedWidget(dynamic shrinkOffset) {
     return Center(
       child: Text(
-        "头部折叠起来了",
+        defaultCollapsedTitle ?? "Appbar",
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w500,
-          color: makeStickyHeaderTextColor(shrinkOffset, true),
+          color: _makeStickyHeaderTextColor(shrinkOffset, true),
         ),
       ),
     );
   }
 
-  final debouncer =
-      DebouncedSearch(duration: const Duration(milliseconds: 100));
-
+  /// 更新状态栏
   void updateStatusBarBrightness(shrinkOffset) {
-    print(makeStickyHeaderTitleAlpha(shrinkOffset));
-    print("${1 - makeStickyHeaderTitleAlpha(shrinkOffset)}");
+    print(_makeStickyHeaderTitleAlpha(shrinkOffset));
+    print("${1 - _makeStickyHeaderTitleAlpha(shrinkOffset)}");
     if (shrinkOffset <= maxExtent / 2) {
-      //&& statusBarMode == 'dark'
-      statusBarMode = 'dark';
       debouncer.run(() {
         controller?.animateTo(0,
             duration: const Duration(milliseconds: 300), curve: Curves.ease);
@@ -85,14 +104,10 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
       ));
     } else if (shrinkOffset > maxExtent / 2 &&
         shrinkOffset <= maxExtent - (paddingTop * 2.5)) {
-      // && statusBarMode == 'light'
       debouncer.run(() {
         controller?.animateTo(maxExtent - (paddingTop * 2.5),
             duration: const Duration(milliseconds: 300), curve: Curves.ease);
       });
-
-      statusBarMode = 'light';
-
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
@@ -100,26 +115,33 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     }
   }
 
-  double makeStickyHeaderTitleAlpha(shrinkOffset) {
+  /// 计算透明度
+  double _makeStickyHeaderTitleAlpha(shrinkOffset) {
     final double alpha =
         (shrinkOffset / (maxExtent - minExtent) * 1).clamp(0, 1).toDouble();
     return alpha;
   }
 
-  Color makeStickyHeaderBgColor(shrinkOffset) {
+  /// 背景颜色
+  Color _makeStickyHeaderBgColor(shrinkOffset) {
     final int alpha =
         (shrinkOffset / (maxExtent - minExtent) * 255).clamp(0, 255).toInt();
+
+    /// 使用传递的RGB
+    if (collapsedColors case List collapsedColors?) {
+      return Color.fromARGB(
+          alpha, collapsedColors[0], collapsedColors[1], collapsedColors[2]);
+    }
+
+    /// 默认RGB
     return Color.fromARGB(alpha, 177, 216, 92);
   }
 
-  Color makeStickyHeaderTextColor(shrinkOffset, isIcon) {
-    if (shrinkOffset <= 50) {
-      return isIcon ? Colors.white : Colors.transparent;
-    } else {
-      final int alpha =
-          (shrinkOffset / (maxExtent - minExtent) * 255).clamp(0, 255).toInt();
-      return Color.fromARGB(alpha, 0, 0, 0);
-    }
+  /// 文字颜色
+  Color _makeStickyHeaderTextColor(shrinkOffset, isIcon) {
+    final int alpha =
+        (shrinkOffset / (maxExtent - minExtent) * 255).clamp(0, 255).toInt();
+    return Color.fromARGB(alpha, 44, 145, 255);
   }
 
   @override
@@ -130,18 +152,19 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
       height: maxExtent,
       width: MediaQuery.of(context).size.width,
       child: Container(
-        color: makeStickyHeaderBgColor(shrinkOffset),
+        color: _makeStickyHeaderBgColor(shrinkOffset),
         child: SafeArea(
           bottom: false,
           child: SizedBox(
               height: collapsedHeight,
               child: Stack(children: [
                 Opacity(
-                    opacity: 1 - makeStickyHeaderTitleAlpha(shrinkOffset),
-                    child: _child()),
+                    opacity: 1 - _makeStickyHeaderTitleAlpha(shrinkOffset),
+                    child: expandedWidget),
                 Opacity(
-                    opacity: makeStickyHeaderTitleAlpha(shrinkOffset),
-                    child: _child1(shrinkOffset)),
+                    opacity: _makeStickyHeaderTitleAlpha(shrinkOffset),
+                    child: collapsedWidget ??
+                        _defaultCollapsedWidget(shrinkOffset)),
               ])),
         ),
       ),
