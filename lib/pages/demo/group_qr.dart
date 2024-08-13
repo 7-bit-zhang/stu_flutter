@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 
@@ -30,9 +32,7 @@ class GroupQr extends StatelessWidget {
         Uint8List pngBytes = byteData.buffer.asUint8List();
         return pngBytes;
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     return null;
   }
 

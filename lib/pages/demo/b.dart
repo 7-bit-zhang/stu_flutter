@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage11 extends StatefulWidget {
+  const HomePage11({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -18,13 +22,13 @@ class _HomePageState extends State<HomePage11> {
                 borderRadius: BorderRadius.circular(16),
                 color: Colors.grey.shade300,
               ),
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              child: SizedBox(
                 height: 280,
                 child: Center(
                     child: Text(
                   "Page $index",
-                  style: TextStyle(color: Colors.indigo),
+                  style: const TextStyle(color: Colors.indigo),
                 )),
               ),
             ));
@@ -35,7 +39,7 @@ class _HomePageState extends State<HomePage11> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               SizedBox(
                 height: 240,
                 child: PageView.builder(
@@ -47,8 +51,8 @@ class _HomePageState extends State<HomePage11> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24, bottom: 12),
+              const Padding(
+                padding: EdgeInsets.only(top: 24, bottom: 12),
                 child: Text(
                   'Worm',
                   style: TextStyle(color: Colors.black54),
@@ -159,7 +163,7 @@ class _HomePageState extends State<HomePage11> {
   }
 }
 
-final colors = const [
+const colors = [
   Colors.red,
   Colors.green,
   Colors.greenAccent,

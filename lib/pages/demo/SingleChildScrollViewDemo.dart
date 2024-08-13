@@ -1,10 +1,9 @@
+// ignore_for_file: file_names, unused_element, no_leading_underscores_for_local_identifiers
+
 import 'package:extended_text_field/extended_text_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:study_demo/pages/sliver/ex_widget.dart';
 
 class CustomKeyboarBinding extends TextInputBinding {
   @override
@@ -22,7 +21,7 @@ class NoSystemKeyboardDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfffafafa),
+      backgroundColor: const Color(0xfffafafa),
       appBar: AppBar(
         title: const Text('no system Keyboard'),
       ),

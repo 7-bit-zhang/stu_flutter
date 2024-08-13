@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:study_demo/pages/sliver/ex_widget.dart';
 
@@ -15,14 +17,14 @@ class _SliverPageState extends State<SliverPage> {
         context: context,
         backgroundColor: const Color.fromARGB(66, 0, 0, 0),
         shape: const RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(const Radius.circular(13))),
+            borderRadius: BorderRadius.all(Radius.circular(13))),
         builder: (BuildContext context) {
-          return Container(
+          return SizedBox(
             width: 375,
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 217,
                 ),
                 Container(
@@ -32,14 +34,14 @@ class _SliverPageState extends State<SliverPage> {
                       color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(5)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 148,
                 ),
                 Container(
                   height: 297,
                   width: 375,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(243, 244, 246, 1),
+                      color: const Color.fromRGBO(243, 244, 246, 1),
                       borderRadius: BorderRadius.circular(5)),
                 ),
               ],
@@ -77,7 +79,7 @@ class _SliverPageState extends State<SliverPage> {
         alignment: Alignment.center,
         child: Text(
           '组合ListView $index',
-          style: TextStyle(color: Colors.white, fontSize: 30),
+          style: const TextStyle(color: Colors.white, fontSize: 30),
         ),
       );
     }));
@@ -93,7 +95,7 @@ class _SliverPageState extends State<SliverPage> {
         floating: false,
         pinned: true,
         snap: false,
-        toolbarTextStyle: TextStyle(color: Colors.white),
+        toolbarTextStyle: const TextStyle(color: Colors.white),
         flexibleSpace: FlexibleSpaceBar(
             background: Image.asset(
               "assets/images/dao.jpg",
@@ -104,7 +106,7 @@ class _SliverPageState extends State<SliverPage> {
               style: TextStyle(color: Colors.white),
             ),
             // collapseMode: CollapseMode.none,
-            stretchModes: [
+            stretchModes: const [
               StretchMode.blurBackground,
               StretchMode.zoomBackground,
               StretchMode.fadeTitle

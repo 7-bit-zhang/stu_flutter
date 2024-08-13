@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:study_demo/pages/Hero/List_page.dart';
 import 'package:study_demo/pages/QQ/qq_frame.dart';
@@ -20,7 +19,6 @@ import 'package:study_demo/pages/demo/RangeSlider_page.dart';
 import 'package:study_demo/pages/demo/ReorderableListView_page.dart';
 import 'package:study_demo/pages/demo/Scrollable_Refresh_page.dart';
 import 'package:study_demo/pages/demo/Shirne_page.dart';
-import 'package:study_demo/pages/demo/SingleChildScrollViewDemo.dart';
 import 'package:study_demo/pages/demo/SliverAppBar_page.dart';
 import 'package:study_demo/pages/demo/TweenAnimationBuidlder_page.dart';
 import 'package:study_demo/pages/demo/TweenAnimationBuidlder_page1.dart';
@@ -29,13 +27,11 @@ import 'package:study_demo/pages/demo/b.dart';
 import 'package:study_demo/pages/demo/button_page.dart';
 import 'package:study_demo/pages/demo/changeNotifier_page.dart';
 import 'package:study_demo/pages/demo/code_qr.dart';
-import 'package:study_demo/pages/demo/colorSwitching.dart';
 import 'package:study_demo/pages/demo/drag_page.dart';
 import 'package:study_demo/pages/demo/draggableScrollableSheet_page.dart';
 import 'package:study_demo/pages/demo/dropdownMenu_page.dart';
 import 'package:study_demo/pages/demo/group_qr.dart';
 import 'package:study_demo/pages/demo/sliver_top_keep.dart';
-import 'package:study_demo/pages/demo/test.dart';
 import 'package:study_demo/pages/demo/transform_page.dart';
 import 'package:study_demo/pages/demo/watermark_page.dart';
 import 'package:study_demo/pages/demoNew/start_page.dart';
@@ -44,7 +40,6 @@ import 'package:study_demo/pages/graphview.dart';
 import 'package:study_demo/pages/kirsch/kirsch.dart';
 import 'package:study_demo/pages/sliver/page.dart';
 import 'package:study_demo/pages/theme/themeDemo.dart';
-import 'package:study_demo/pages/theme/theme_style.dart';
 import 'package:study_demo/pages/web.dart';
 import 'package:study_demo/theme.dart';
 import 'package:study_demo/web3demo/android_call.dart';
@@ -61,18 +56,15 @@ class FramePage extends StatelessWidget {
         toolbarHeight: 0,
         elevation: 0,
       ),
-      body: WillPopScope(
-        onWillPop: () async {
+      body: PopScope(
+        onPopInvokedWithResult: (b, d) async {
           await AndroidCall.backDesktop();
-          return false;
         },
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           children: [
             TextField(
-              onChanged: (v) {
-                print("==测试$v");
-              },
+              onChanged: (v) {},
             ),
             const SizedBox(height: 10),
             const Text("DEMO",
@@ -93,11 +85,11 @@ class FramePage extends StatelessWidget {
             const SizedBox(height: 20),
             getItem("滚动视差效果", const Start()),
             const SizedBox(height: 20),
-            getItem("1", TreeViewPage()),
+            getItem("1", const TreeViewPage()),
             const SizedBox(height: 20),
             getItem("WebViewPage", const WebViewPage()),
             const SizedBox(height: 20),
-            getItem("HomePage11", HomePage11()),
+            getItem("HomePage11", const HomePage11()),
             const SizedBox(height: 20),
             getItem(
                 "CustomSliverHeaderDemo",

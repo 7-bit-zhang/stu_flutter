@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, avoid_print, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:study_demo/pages/folding_cell-master/color_hex.dart';

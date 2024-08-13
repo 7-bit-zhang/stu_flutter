@@ -1,9 +1,12 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, curly_braces_in_flow_control_structures, no_leading_underscores_for_local_identifiers
+
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 class DarkSample extends StatefulWidget {
+  const DarkSample({super.key});
+
   @override
   _DarkSampleState createState() => _DarkSampleState();
 }
@@ -49,7 +52,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final int _counter = 0;
 
   void _incrementCounter() {
     widget.onIncrement!();
@@ -182,7 +185,6 @@ class _DarkTransitionState extends State<DarkTransition>
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     _updateRadius();
   }

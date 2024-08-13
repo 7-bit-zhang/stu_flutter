@@ -50,16 +50,16 @@ class _SetNicknameState extends State<SetNickname> {
               child: ElevatedButton(
                 onPressed: () => save(),
                 style: const ButtonStyle(
-                    overlayColor: MaterialStatePropertyAll(Colors.transparent),
-                    shape: MaterialStatePropertyAll(
+                    overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                    shape: WidgetStatePropertyAll(
                       RoundedRectangleBorder(
                         side: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                     ),
-                    elevation: MaterialStatePropertyAll(0),
-                    padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                    backgroundColor: MaterialStatePropertyAll(
+                    elevation: WidgetStatePropertyAll(0),
+                    padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                    backgroundColor: WidgetStatePropertyAll(
                         Color.fromARGB(255, 108, 68, 255))),
                 child: const Text(
                   "保存",

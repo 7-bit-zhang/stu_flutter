@@ -99,12 +99,12 @@ class _PersonalQRCodePageState extends State<PersonalQRCodePage> {
               Navigator.maybePop(context);
             },
             style: const ButtonStyle(
-                overlayColor: MaterialStatePropertyAll(Colors.transparent)),
+                overlayColor: WidgetStatePropertyAll(Colors.transparent)),
             icon: Image.asset("assets/images/返回.png", width: 26)),
         actions: [
           IconButton(
               style: const ButtonStyle(
-                  overlayColor: MaterialStatePropertyAll(Colors.transparent)),
+                  overlayColor: WidgetStatePropertyAll(Colors.transparent)),
               onPressed: () => shareMethod(),
               icon: Image.asset("assets/images/编组 8.png", width: 18))
         ],
@@ -233,7 +233,7 @@ class _PersonalQRCodePageState extends State<PersonalQRCodePage> {
   Widget thisWidgetButton(
       {required String text,
       TextStyle? style,
-      MaterialStatePropertyAll<Color?>? buttonColor,
+      WidgetStatePropertyAll<Color?>? buttonColor,
       BorderRadiusGeometry? borderRadius,
       Function()? onPressed}) {
     return SizedBox(
@@ -241,18 +241,18 @@ class _PersonalQRCodePageState extends State<PersonalQRCodePage> {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-            overlayColor: const MaterialStatePropertyAll(Colors.transparent),
-            shape: MaterialStatePropertyAll(
+            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+            shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 side: BorderSide.none,
                 borderRadius: borderRadius ??
                     BorderRadius.only(bottomRight: Radius.circular(circular)),
               ),
             ),
-            elevation: const MaterialStatePropertyAll(0),
-            padding: const MaterialStatePropertyAll(EdgeInsets.zero),
+            elevation: const WidgetStatePropertyAll(0),
+            padding: const WidgetStatePropertyAll(EdgeInsets.zero),
             backgroundColor: buttonColor ??
-                MaterialStatePropertyAll(Color.fromARGB(255, 250, 250, 250))),
+                WidgetStatePropertyAll(Color.fromARGB(255, 250, 250, 250))),
         child: Text(
           text,
           style: style ??

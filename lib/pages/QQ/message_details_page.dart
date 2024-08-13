@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:ui';
 
 import 'package:extended_image/extended_image.dart';
@@ -137,7 +139,7 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
               backgroundColor: Colors.transparent,
               leading: const BackButton(
                 style: ButtonStyle(
-                    overlayColor: MaterialStatePropertyAll(Colors.transparent)),
+                    overlayColor: WidgetStatePropertyAll(Colors.transparent)),
               ),
               leadingWidth: 70,
               title: Column(

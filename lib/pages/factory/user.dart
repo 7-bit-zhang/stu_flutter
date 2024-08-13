@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields, deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class User {
@@ -24,6 +26,7 @@ class StText extends StatelessWidget {
   final TextStyle defaultStyle;
   final int? maxLines;
   final TextAlign? align;
+  @override
   final Key? key;
 
   const StText({

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Movie {
   /// 名称
   final String name;

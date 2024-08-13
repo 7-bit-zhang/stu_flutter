@@ -15,12 +15,12 @@ class _MyWidget1State extends State<MyWidget1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StudyAppBar.MyAppBar("123", context),
-      body: Center(
+      body: const Center(
         child: GradientBound(
           width: 100,
           height: 40,
           border: 5,
-          child: Container(
+          child: SizedBox(
             width: 100,
             height: 40,
           ),

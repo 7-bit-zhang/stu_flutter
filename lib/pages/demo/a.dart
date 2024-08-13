@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, library_private_types_in_public_api, non_constant_identifier_names
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +20,9 @@ class SelfHomePage extends StatelessWidget {
 }
 
 class HomeMain extends StatefulWidget {
-  HomeMain({Key? key, required this.rpx}) : super(key: key);
+  const HomeMain({Key? key, required this.rpx}) : super(key: key);
   final double rpx;
+  @override
   _HomeMainState createState() => _HomeMainState();
 }
 
@@ -39,8 +42,8 @@ class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
     tabController = TabController(vsync: this, length: 3);
     prev_dy = 0;
     fitType = BoxFit.fitWidth;
-    animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
     anim = Tween(begin: 0.0, end: 0.0).animate(animationController);
   }
 
@@ -100,17 +103,17 @@ class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
           animationController.forward(from: 0);
         },
         child: CustomScrollView(
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           slivers: <Widget>[
             SliverAppBar(
               pinned: true,
               actions: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.more_vert),
+                  icon: const Icon(Icons.more_vert),
                   onPressed: () {},
                 ),
               ],
@@ -135,9 +138,9 @@ class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
                   height: 100,
                   alignment: Alignment.centerLeft,
                   color: Colors.blueAccent,
-                  child: Text("This is itm $index"),
                   margin: EdgeInsets.symmetric(
                       horizontal: 20 * rpx, vertical: 10 * rpx),
+                  child: Text("This is itm $index"),
                 );
               }, childCount: 80),
             )
@@ -154,7 +157,7 @@ class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
 }
 
 class TopBarWithCallback extends StatefulWidget {
-  TopBarWithCallback(
+  const TopBarWithCallback(
       {Key? key,
       required this.extraPicHeight,
       required this.fitType,
@@ -163,6 +166,7 @@ class TopBarWithCallback extends StatefulWidget {
   final double extraPicHeight;
   final BoxFit fitType;
   final Function(double) updateHeight;
+  @override
   _TopBarWithCallbackState createState() => _TopBarWithCallbackState();
 }
 
@@ -220,7 +224,8 @@ class NumWithDesc extends StatelessWidget {
               width: 10 * rpx,
             ),
             Text(desc,
-                style: TextStyle(fontSize: textSize, color: Color(0xff3b3c49)))
+                style: TextStyle(
+                    fontSize: textSize, color: const Color(0xff3b3c49)))
           ],
         ));
   }

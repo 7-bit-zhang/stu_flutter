@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:graphview/GraphView.dart';
 
 class TreeViewPage extends StatefulWidget {
+  const TreeViewPage({super.key});
+
   @override
   _TreeViewPageState createState() => _TreeViewPageState();
 }
@@ -18,47 +22,50 @@ class _TreeViewPageState extends State<TreeViewPage> {
       children: [
         Wrap(
           children: [
-            Container(
+            SizedBox(
               width: 100,
               child: TextFormField(
                 initialValue: builder.siblingSeparation.toString(),
-                decoration: InputDecoration(labelText: "Sibling Separation"),
+                decoration:
+                    const InputDecoration(labelText: "Sibling Separation"),
                 onChanged: (text) {
                   builder.siblingSeparation = int.tryParse(text) ?? 100;
-                  this.setState(() {});
+                  setState(() {});
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: TextFormField(
                 initialValue: builder.levelSeparation.toString(),
-                decoration: InputDecoration(labelText: "Level Separation"),
+                decoration:
+                    const InputDecoration(labelText: "Level Separation"),
                 onChanged: (text) {
                   builder.levelSeparation = int.tryParse(text) ?? 100;
-                  this.setState(() {});
+                  setState(() {});
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: TextFormField(
                 initialValue: builder.subtreeSeparation.toString(),
-                decoration: InputDecoration(labelText: "Subtree separation"),
+                decoration:
+                    const InputDecoration(labelText: "Subtree separation"),
                 onChanged: (text) {
                   builder.subtreeSeparation = int.tryParse(text) ?? 100;
-                  this.setState(() {});
+                  setState(() {});
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: TextFormField(
                 initialValue: builder.orientation.toString(),
-                decoration: InputDecoration(labelText: "Orientation"),
+                decoration: const InputDecoration(labelText: "Orientation"),
                 onChanged: (text) {
                   builder.orientation = int.tryParse(text) ?? 100;
-                  this.setState(() {});
+                  setState(() {});
                 },
               ),
             ),
@@ -67,18 +74,17 @@ class _TreeViewPageState extends State<TreeViewPage> {
                 final node12 = Node.Id(r.nextInt(100));
                 var edge =
                     graph.getNodeAtPosition(r.nextInt(graph.nodeCount()));
-                print(edge);
                 graph.addEdge(edge, node12);
                 setState(() {});
               },
-              child: Text("Add"),
+              child: const Text("Add"),
             )
           ],
         ),
         Expanded(
           child: InteractiveViewer(
               constrained: false,
-              boundaryMargin: EdgeInsets.all(100),
+              boundaryMargin: const EdgeInsets.all(100),
               minScale: 0.1,
               maxScale: 5.6,
               child: GraphView(
@@ -103,17 +109,17 @@ class _TreeViewPageState extends State<TreeViewPage> {
   Widget rectangleWidget(int a) {
     return InkWell(
       onTap: () {
-        print('clicked');
         EasyLoading.showToast(a.toString());
       },
       child: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(color: Colors.blue, spreadRadius: 1),
             ],
           ),
+          // ignore: unnecessary_brace_in_string_interps
           child: Text('Node ${a}')),
     );
   }
@@ -125,6 +131,7 @@ class _TreeViewPageState extends State<TreeViewPage> {
 
   @override
   void initState() {
+    super.initState();
     final node1 = Node.Id(1);
     final node2 = Node.Id(2);
     final node3 = Node.Id(3);

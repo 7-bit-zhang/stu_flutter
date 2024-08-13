@@ -25,8 +25,8 @@ class MySliverApp extends StatelessWidget {
         SliverList.builder(
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               height: 100,
               color: Colors.red,
             );

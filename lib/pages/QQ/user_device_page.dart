@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -96,9 +95,9 @@ class _UserDevicePageState extends State<UserDevicePage> {
                                 child: Checkbox(
                                   value: checkboxValue,
                                   checkColor: Colors.white,
-                                  fillColor: const MaterialStatePropertyAll(
-                                      Colors.blue),
-                                  overlayColor: const MaterialStatePropertyAll(
+                                  fillColor:
+                                      const WidgetStatePropertyAll(Colors.blue),
+                                  overlayColor: const WidgetStatePropertyAll(
                                       Colors.transparent),
                                   shape: const CircleBorder(),
                                   onChanged: (boo) {},

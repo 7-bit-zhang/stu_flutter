@@ -151,7 +151,7 @@ buildAppbar() {
       margin: const EdgeInsets.all(10),
       child: const BackButton(
         color: Colors.white,
-        style: ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+        style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
       ),
     ),
   );

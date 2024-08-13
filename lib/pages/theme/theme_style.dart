@@ -12,7 +12,7 @@ class ThemeCubit extends Cubit<ThemeData> {
     useMaterial3: true,
     iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
-            overlayColor: MaterialStatePropertyAll(Colors.transparent))),
+            overlayColor: WidgetStatePropertyAll(Colors.transparent))),
     appBarTheme: const AppBarTheme(
       elevation: 0,
       toolbarHeight: 80,
@@ -50,6 +50,5 @@ class ThemeCubit extends Cubit<ThemeData> {
   /// Toggles the current brightness between light and dark.
   void toggleTheme() {
     emit(state.brightness == Brightness.dark ? _darkTheme : _lightTheme);
-    print(state.brightness);
   }
 }

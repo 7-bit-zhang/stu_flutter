@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,9 +13,8 @@ class ScanPage extends StatelessWidget {
   final ScanController _controller = ScanController();
 
   void getResult(String result, BuildContext context) async {
-    //TODO
     EasyLoading.showToast("扫描出的数据是: $result");
-    await Future.delayed(Duration(seconds: 1), () {
+    await Future.delayed(const Duration(seconds: 1), () {
       _controller.resume();
     });
   }
@@ -21,11 +22,11 @@ class ScanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("扫码")),
+      appBar: AppBar(title: const Text("扫码")),
       body: Stack(children: [
         ScanView(
           controller: _controller,
-          scanLineColor: Color(0xFF4759DA),
+          scanLineColor: const Color(0xFF4759DA),
           onCapture: (data) {
             _controller.pause();
             getResult(data, context);
@@ -39,7 +40,7 @@ class ScanPage extends StatelessWidget {
               return MaterialButton(
                   child: Icon(
                     lightIcon,
-                    color: Color(0xFF4759DA),
+                    color: const Color(0xFF4759DA),
                   ),
                   onPressed: () {
                     _controller.toggleTorchMode();
@@ -57,7 +58,7 @@ class ScanPage extends StatelessWidget {
           right: 100,
           bottom: 100,
           child: MaterialButton(
-              child: Icon(
+              child: const Icon(
                 Icons.image,
                 color: Color(0xFF4759DA),
               ),
