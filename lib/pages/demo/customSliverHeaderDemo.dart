@@ -37,22 +37,29 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   /// 展开后显示组件
   final Widget expandedWidget;
 
-  /// 展开时的背景颜色 RGB
-  /// 分别为 RGB
-  final List<int>? expandedColors;
+  /// 展开时的背景颜色
+  final Color? expandedColors;
 
-  /// 折叠时的背景颜色 RGB
-  /// 分别为 RGB
-  final List<int>? collapsedColors;
+  /// 折叠时的背景颜色
+  final Color? collapsedColors;
 
   /// 默认的折叠组件Title
   final String? defaultCollapsedTitle;
+
+  /// 默认的折叠组件Title
+  final Color? defaultCollapsedColor;
+
+  /// 动画执行时间
+  /// 默认 300ms
+  late Duration durationAnimation;
   SliverCustomHeaderDelegate(
       {this.controller,
       this.collapsedWidget,
       this.collapsedColors,
       this.expandedColors,
       this.defaultCollapsedTitle,
+      this.defaultCollapsedColor,
+      this.durationAnimation = const Duration(milliseconds: 300),
       required this.collapsedHeight,
       required this.expandedHeight,
       required this.paddingTop,
@@ -90,13 +97,11 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   /// 更新状态栏
-  void updateStatusBarBrightness(shrinkOffset) {
-    print(_makeStickyHeaderTitleAlpha(shrinkOffset));
-    print("${1 - _makeStickyHeaderTitleAlpha(shrinkOffset)}");
+  void _updateStatusBarBrightness(shrinkOffset) {
     if (shrinkOffset <= maxExtent / 2) {
       debouncer.run(() {
         controller?.animateTo(0,
-            duration: const Duration(milliseconds: 300), curve: Curves.ease);
+            duration: durationAnimation, curve: Curves.ease);
       });
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
@@ -106,7 +111,7 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
         shrinkOffset <= maxExtent - (paddingTop * 2.5)) {
       debouncer.run(() {
         controller?.animateTo(maxExtent - (paddingTop * 2.5),
-            duration: const Duration(milliseconds: 300), curve: Curves.ease);
+            duration: durationAnimation, curve: Curves.ease);
       });
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
@@ -128,12 +133,11 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
         (shrinkOffset / (maxExtent - minExtent) * 255).clamp(0, 255).toInt();
 
     /// 使用传递的RGB
-    if (collapsedColors case List collapsedColors?) {
-      return Color.fromARGB(
-          alpha, collapsedColors[0], collapsedColors[1], collapsedColors[2]);
+    if (collapsedColors case Color color?) {
+      return Color.fromARGB(alpha, color.red, color.green, color.blue);
     }
 
-    /// 默认RGB
+    /// 默认RGB 绿色
     return Color.fromARGB(alpha, 177, 216, 92);
   }
 
@@ -141,32 +145,34 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   Color _makeStickyHeaderTextColor(shrinkOffset, isIcon) {
     final int alpha =
         (shrinkOffset / (maxExtent - minExtent) * 255).clamp(0, 255).toInt();
-    return Color.fromARGB(alpha, 44, 145, 255);
+
+    /// 使用传递的RGB
+    if (defaultCollapsedColor case Color color?) {
+      return Color.fromARGB(alpha, color.red, color.green, color.blue);
+    }
+    return Color.fromARGB(alpha, 255, 255, 255);
   }
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    updateStatusBarBrightness(shrinkOffset);
-    return SizedBox(
+    _updateStatusBarBrightness(shrinkOffset);
+    return Container(
+      color: _makeStickyHeaderBgColor(shrinkOffset),
       height: maxExtent,
-      width: MediaQuery.of(context).size.width,
-      child: Container(
-        color: _makeStickyHeaderBgColor(shrinkOffset),
-        child: SafeArea(
-          bottom: false,
-          child: SizedBox(
-              height: collapsedHeight,
-              child: Stack(children: [
-                Opacity(
-                    opacity: 1 - _makeStickyHeaderTitleAlpha(shrinkOffset),
-                    child: expandedWidget),
-                Opacity(
-                    opacity: _makeStickyHeaderTitleAlpha(shrinkOffset),
-                    child: collapsedWidget ??
-                        _defaultCollapsedWidget(shrinkOffset)),
-              ])),
-        ),
+      child: SafeArea(
+        bottom: false,
+        child: SizedBox(
+            height: collapsedHeight,
+            child: Stack(children: [
+              Opacity(
+                  opacity: 1 - _makeStickyHeaderTitleAlpha(shrinkOffset),
+                  child: expandedWidget),
+              Opacity(
+                  opacity: _makeStickyHeaderTitleAlpha(shrinkOffset),
+                  child:
+                      collapsedWidget ?? _defaultCollapsedWidget(shrinkOffset)),
+            ])),
       ),
     );
   }
