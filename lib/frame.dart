@@ -33,6 +33,7 @@ import 'package:study_demo/pages/demo/dropdownMenu_page.dart';
 import 'package:study_demo/pages/demo/group_qr.dart';
 import 'package:study_demo/pages/demo/sliver_top_keep.dart';
 import 'package:study_demo/pages/demo/transform_page.dart';
+import 'package:study_demo/pages/demo/waterWaveProgressBar.dart';
 import 'package:study_demo/pages/demo/watermark_page.dart';
 import 'package:study_demo/pages/demoNew/start_page.dart';
 import 'package:study_demo/pages/folding_cell-master/folding_cell_list_page.dart';
@@ -115,7 +116,9 @@ class FramePage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          getItem("切换主题 使用bloc 管理主题", MySliverApp()),
+          getItem("水波球形进度条", const WaterWaveProgressPage()),
+          const SizedBox(height: 20),
+          getItem("自动吸顶sliver", MySliverApp()),
           const SizedBox(height: 20),
           getItem("切换主题 使用bloc 管理主题", const ThemeSwitch()),
           const SizedBox(height: 20),

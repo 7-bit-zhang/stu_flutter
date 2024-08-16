@@ -536,6 +536,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "sliver_head_automatic_adsorption",
+      "rootUri": "file:///C:/Users/ZY-PC/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/sliver_head_automatic_adsorption-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "smooth_page_indicator",
       "rootUri": "file:///C:/Users/ZY-PC/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/smooth_page_indicator-1.2.0+3",
       "packageUri": "lib/",
@@ -734,7 +740,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-08-13T02:29:29.540901Z",
+  "generated": "2024-08-16T08:37:57.471764Z",
   "generator": "pub",
   "generatorVersion": "3.5.0",
   "flutterRoot": "file:///D:/Flutter_SDK/flutter",

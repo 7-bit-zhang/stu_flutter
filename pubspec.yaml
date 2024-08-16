@@ -64,11 +64,11 @@ dependencies:
   extended_text_field: ^16.0.0
   flutter_layout_grid: ^2.0.7
   # # 引入组件，可以引用本地，也可以使用远程仓库
-  # extension_animation:
-  #   #path: ../flutter_styled // 本地引用方式
-  #   git: 
-  #      url: https://github.com/7-bit-zhang/extension_animation.git
-  #      ref: "0.0.2"
+  # sliver_head_automatic_adsorption:
+  #   git:
+  #      url: https://github.com/7-bit-zhang/sliver_head_automatic_adsorption.git
+  #      ref: '1.0.1'
+  sliver_head_automatic_adsorption: ^1.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
