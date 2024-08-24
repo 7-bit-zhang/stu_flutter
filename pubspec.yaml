@@ -63,6 +63,7 @@ dependencies:
   equatable: ^2.0.5
   extended_text_field: ^16.0.0
   flutter_layout_grid: ^2.0.7
+  logger: ^2.4.0
   # # 引入组件，可以引用本地，也可以使用远程仓库
   # sliver_head_automatic_adsorption:
   #   git:
