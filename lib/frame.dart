@@ -31,6 +31,7 @@ import 'package:study_demo/pages/demo/drag_page.dart';
 import 'package:study_demo/pages/demo/draggableScrollableSheet_page.dart';
 import 'package:study_demo/pages/demo/dropdownMenu_page.dart';
 import 'package:study_demo/pages/demo/group_qr.dart';
+import 'package:study_demo/pages/demo/rect_my.dart';
 import 'package:study_demo/pages/demo/sliver_top_keep.dart';
 import 'package:study_demo/pages/demo/transform_page.dart';
 import 'package:study_demo/pages/demo/waterWaveProgressBar.dart';
@@ -116,6 +117,8 @@ class FramePage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+          getItem("RectParentWidget", RectParenPage()),
+          const SizedBox(height: 20),
           getItem("水波球形进度条", const WaterWaveProgressPage()),
           const SizedBox(height: 20),
           getItem("自动吸顶sliver", MySliverApp()),

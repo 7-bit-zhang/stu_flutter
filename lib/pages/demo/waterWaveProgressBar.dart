@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:sliver_head_automatic_adsorption/sliver_head_automatic_adsorption.dart';
-
 class WaterWaveProgressPage extends StatefulWidget {
   const WaterWaveProgressPage({super.key});
 
@@ -119,7 +117,8 @@ class _WaterWaveProgressBarState extends State<WaterWaveProgressBar>
       _oldProgress = oldWidget.progress;
       _progressAnimation =
           Tween<double>(begin: _oldProgress, end: widget.progress).animate(
-        CurvedAnimation(parent: _progressController, curve: Curves.easeInOut),
+        CurvedAnimation(
+            parent: _progressController, curve: Curves.easeInOutCirc),
       );
 
       // 开始执行进度动画
@@ -228,16 +227,16 @@ class MultiLayerWaterWavePainter extends CustomPainter {
       }
     }
 
-    wavePath1.lineTo(size.width * 1.25, size.height);
-    wavePath1.lineTo(-waveLength / 4, size.height);
+    wavePath1.lineTo(size.width * 1.2, size.height);
+    wavePath1.lineTo(-waveLength / 3, size.height);
     wavePath1.close();
 
-    wavePath2.lineTo(size.width * 1.25, size.height);
-    wavePath2.lineTo(-waveLength / 4, size.height);
+    wavePath2.lineTo(size.width * 1.4, size.height);
+    wavePath2.lineTo(-waveLength / 3, size.height);
     wavePath2.close();
 
-    wavePath3.lineTo(size.width * 1.25, size.height);
-    wavePath3.lineTo(-waveLength / 4, size.height);
+    wavePath3.lineTo(size.width * 1.8, size.height);
+    wavePath3.lineTo(-waveLength / 3, size.height);
     wavePath3.close();
 
     // 绘制圆形背景

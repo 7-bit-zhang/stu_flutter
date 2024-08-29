@@ -69,6 +69,7 @@ dependencies:
   #      url: https://github.com/7-bit-zhang/sliver_head_automatic_adsorption.git
   #      ref: '1.0.1'
   sliver_head_automatic_adsorption: ^1.0.4
+  extended_sliver: ^2.1.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
