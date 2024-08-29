@@ -32,6 +32,7 @@ import 'package:study_demo/pages/demo/draggableScrollableSheet_page.dart';
 import 'package:study_demo/pages/demo/dropdownMenu_page.dart';
 import 'package:study_demo/pages/demo/group_qr.dart';
 import 'package:study_demo/pages/demo/rect_my.dart';
+import 'package:study_demo/pages/demo/sliverMainAxisGroup_sliverPersistenHeader.dart';
 import 'package:study_demo/pages/demo/sliver_top_keep.dart';
 import 'package:study_demo/pages/demo/transform_page.dart';
 import 'package:study_demo/pages/demo/waterWaveProgressBar.dart';
@@ -117,7 +118,17 @@ class FramePage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          getItem("RectParentWidget", RectParenPage()),
+          getItem(
+              "sliverList分组 滚动吸顶单个",
+              SliverMainAxisGroupPage(
+                title: 'DATA',
+                onScrollOffsetChanged: (double x, double y) {
+                  print(x);
+                  print(y);
+                },
+              )),
+          const SizedBox(height: 20),
+          getItem("父组件拦截子组件点击事件使用计算方式", RectParenPage()),
           const SizedBox(height: 20),
           getItem("水波球形进度条", const WaterWaveProgressPage()),
           const SizedBox(height: 20),
@@ -126,8 +137,7 @@ class FramePage extends StatelessWidget {
           getItem("切换主题 使用bloc 管理主题", const ThemeSwitch()),
           const SizedBox(height: 20),
           getItem(
-              "DraggableScrollableSheet 拖拽操作来展开和隐藏一个可滚动的面板  Image缩放用InteractiveViewer",
-              const DraggableScrollableSheetPage()),
+              "类似于地图Map  上拉菜单  可拖动折叠", const DraggableScrollableSheetPage()),
           const SizedBox(height: 20),
           getItem("SliverAppbar 仿", const SelfHomePage()),
           const SizedBox(height: 20),
