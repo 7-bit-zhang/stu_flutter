@@ -34,6 +34,7 @@ import 'package:study_demo/pages/demo/group_qr.dart';
 import 'package:study_demo/pages/demo/rect_my.dart';
 import 'package:study_demo/pages/demo/sliverMainAxisGroup_sliverPersistenHeader.dart';
 import 'package:study_demo/pages/demo/sliver_top_keep.dart';
+import 'package:study_demo/pages/demo/text_filed_type.dart';
 import 'package:study_demo/pages/demo/transform_page.dart';
 import 'package:study_demo/pages/demo/waterWaveProgressBar.dart';
 import 'package:study_demo/pages/demo/watermark_page.dart';
@@ -118,6 +119,7 @@ class FramePage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+          getItem("TextFiledTypeExample", TextFiledTypeExample()),
           getItem(
               "sliverList分组 滚动吸顶单个",
               SliverMainAxisGroupPage(
