@@ -10,6 +10,39 @@ class TextFiledTypeExample extends StatefulWidget {
 }
 
 class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
+  ///测试
+  onTest() {
+    var controller = TextEditingController();
+    var data1 = TextFiledTypeControllerTypedef(
+        controller: controller,
+        textFiledType: TextFiledType(
+            controller: controller,
+            label: const Text(
+              "项目名称",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+            ),
+            hintText: "hintText"));
+    var data2 = TextFiledTypeControllerTypedef(
+        controller: controller,
+        textFiledType: TextFiledType(
+          controller: controller,
+          label: const Text("项目价格",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
+          endWidget: const Text("元",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
+        ));
+
+    if (widget.controller.textFiledTypeTypedefs.length % 2 == 0) {
+      widget.controller.add(
+          key: widget.controller.textFiledTypeTypedefs.length.toString(),
+          value: data1);
+    } else {
+      widget.controller.add(
+          key: widget.controller.textFiledTypeTypedefs.length.toString(),
+          value: data2);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,8 +51,8 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
         title: const Text("TextFiledTypeExample"),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        print(widget.controller.textFiledTypeTypedefs
-            .map((d) => print(d.controller.text)));
+        print(widget.controller.textFiledTypeTypedefs.entries.map(
+            (d) => print("key: ${d.key},value: ${d.value.controller.text}")));
       }),
       body: Center(
           child: Column(
@@ -34,11 +67,11 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
               builder: (context, Widget? child) {
                 return Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: widget.controller.textFiledTypeTypedefs
+                    children: widget.controller.textFiledTypeTypedefs.entries
                         .map((data) => Builder(builder: (context) {
                               return Column(
                                 children: [
-                                  data.textFiledType,
+                                  data.value.textFiledType,
                                   const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 8.0),
@@ -56,33 +89,7 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              var controller = TextEditingController();
-              if (widget.controller.textFiledTypeTypedefs.length % 2 == 0) {
-                widget.controller.add(TextFiledTypeControllerTypedef(
-                    controller: controller,
-                    textFiledType: TextFiledType(
-                        controller: controller,
-                        label: const Text("项目价格",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w300)),
-                        endWidget: const Text("元",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w300)),
-                        hintText: "")));
-              } else {
-                widget.controller.add(TextFiledTypeControllerTypedef(
-                    controller: controller,
-                    textFiledType: TextFiledType(
-                        controller: controller,
-                        label: const Text(
-                          "项目名称",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w300),
-                        ),
-                        hintText: "hintText")));
-              }
-            },
+            onTap: onTest,
             child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -112,20 +119,20 @@ typedef TextFiledTypeTypedef = TextFiledTypeControllerTypedef;
 /// textFiledTypeTypedef  ChangeNotifier
 class TextFiledTypeController extends ChangeNotifier {
   // textFiledTypeTypedefs
-  final List<TextFiledTypeTypedef> _textFiledTypeTypedefs = [];
+  final Map<String, TextFiledTypeTypedef> _textFiledTypeTypedefs = {};
 
-  List<TextFiledTypeTypedef> get textFiledTypeTypedefs =>
+  Map<String, TextFiledTypeTypedef> get textFiledTypeTypedefs =>
       _textFiledTypeTypedefs;
 
   //set
-  void add(TextFiledTypeTypedef value) {
-    _textFiledTypeTypedefs.add(value);
+  void add({required String key, required TextFiledTypeTypedef value}) {
+    _textFiledTypeTypedefs[key] = value;
     //呼叫所有监听的人进行重新绘制
     notifyListeners();
   }
 
-  void remove(TextFiledTypeTypedef value) {
-    _textFiledTypeTypedefs.remove(value);
+  void remove(String key) {
+    _textFiledTypeTypedefs.remove(key);
     //呼叫所有监听的人进行重新绘制
     notifyListeners();
   }
