@@ -15,7 +15,7 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
     var controller = TextEditingController();
     var data1 = TextFiledTypeControllerTypedef(
         controller: controller,
-        textFiledType: TextFiledType(
+        textFiledType: TextFiledTypeWidget(
             controller: controller,
             label: const Text(
               "项目名称",
@@ -24,7 +24,7 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
             hintText: "hintText"));
     var data2 = TextFiledTypeControllerTypedef(
         controller: controller,
-        textFiledType: TextFiledType(
+        textFiledType: TextFiledTypeWidget(
           controller: controller,
           label: const Text("项目价格",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
@@ -140,7 +140,7 @@ class TextFiledTypeController extends ChangeNotifier {
 
 class TextFiledTypeControllerTypedef {
   /// textFiledType
-  late TextFiledType textFiledType;
+  late TextFiledTypeWidget textFiledType;
 
   /// controller
   late TextEditingController controller;
@@ -150,8 +150,8 @@ class TextFiledTypeControllerTypedef {
       {required this.controller, required this.textFiledType});
 }
 
-class TextFiledType extends StatefulWidget {
-  const TextFiledType(
+class TextFiledTypeWidget extends StatefulWidget {
+  const TextFiledTypeWidget(
       {super.key,
       this.label,
       this.hintText,
@@ -183,10 +183,10 @@ class TextFiledType extends StatefulWidget {
   /// controller
   final TextEditingController controller;
   @override
-  State<TextFiledType> createState() => _TextFiledTypeState();
+  State<TextFiledTypeWidget> createState() => _TextFiledTypeWidgetState();
 }
 
-class _TextFiledTypeState extends State<TextFiledType> {
+class _TextFiledTypeWidgetState extends State<TextFiledTypeWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
