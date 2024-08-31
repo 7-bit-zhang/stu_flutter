@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class TextFiledTypeExample extends StatefulWidget {
-  const TextFiledTypeExample({super.key});
-
+  TextFiledTypeExample({super.key});
+  final TextFiledTypeController controller = TextFiledTypeController();
   @override
   State<TextFiledTypeExample> createState() => _TextFiledTypeExampleState();
 }
@@ -13,47 +13,147 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 190, 213, 253),
+      backgroundColor: const Color.fromARGB(255, 208, 222, 247),
       appBar: AppBar(
         title: const Text("TextFiledTypeExample"),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        print(widget.controller.textFiledTypeTypedefs
+            .map((d) => print(d.controller.text)));
+      }),
       body: Center(
-          child: Container(
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: const Color(0xffdfebff),
-            borderRadius: BorderRadius.circular(10)),
-        child: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFiledTypeTypedef(
-              label: Text("项目名称", style: TextStyle(fontSize: 16)),
-              hintText: "请输入用户名",
-              endWidget: Text("元"),
+          child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: const Color(0xffdfebff),
+                borderRadius: BorderRadius.circular(12)),
+            child: ListenableBuilder(
+              listenable: widget.controller,
+              builder: (context, Widget? child) {
+                return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: widget.controller.textFiledTypeTypedefs
+                        .map((data) => Builder(builder: (context) {
+                              return Column(
+                                children: [
+                                  data.textFiledType,
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Divider(
+                                      height: .5,
+                                      thickness: .5,
+                                      color: Colors.black12,
+                                    ),
+                                  )
+                                ],
+                              );
+                            }))
+                        .toList());
+              },
             ),
-            TextFiledTypeTypedef(
-              label: Text("项目名称", style: TextStyle(fontSize: 16)),
-              hintText: "请输入用户名",
-              endWidget: Text("元"),
-            ),
-          ],
-        ),
+          ),
+          GestureDetector(
+            onTap: () {
+              var controller = TextEditingController();
+              if (widget.controller.textFiledTypeTypedefs.length % 2 == 0) {
+                widget.controller.add(TextFiledTypeControllerTypedef(
+                    controller: controller,
+                    textFiledType: TextFiledType(
+                        controller: controller,
+                        label: const Text("项目价格",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w300)),
+                        endWidget: const Text("元",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w300)),
+                        hintText: "")));
+              } else {
+                widget.controller.add(TextFiledTypeControllerTypedef(
+                    controller: controller,
+                    textFiledType: TextFiledType(
+                        controller: controller,
+                        label: const Text(
+                          "项目名称",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w300),
+                        ),
+                        hintText: "hintText")));
+              }
+            },
+            child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: const Color(0xffdfebff),
+                    borderRadius: BorderRadius.circular(12)),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add, color: Color(0xff5091fd)),
+                    Text(
+                      "新增项目",
+                      style: TextStyle(color: Color(0xff5091fd)),
+                    )
+                  ],
+                )),
+          ),
+        ],
       )),
     );
   }
 }
 
-typedef TextFiledTypeTypedef = _TextFiledType;
+/// 测试写法
+typedef TextFiledTypeTypedef = TextFiledTypeControllerTypedef;
 
-class _TextFiledType extends StatefulWidget {
-  const _TextFiledType(
+/// textFiledTypeTypedef  ChangeNotifier
+class TextFiledTypeController extends ChangeNotifier {
+  // textFiledTypeTypedefs
+  final List<TextFiledTypeTypedef> _textFiledTypeTypedefs = [];
+
+  List<TextFiledTypeTypedef> get textFiledTypeTypedefs =>
+      _textFiledTypeTypedefs;
+
+  //set
+  void add(TextFiledTypeTypedef value) {
+    _textFiledTypeTypedefs.add(value);
+    //呼叫所有监听的人进行重新绘制
+    notifyListeners();
+  }
+
+  void remove(TextFiledTypeTypedef value) {
+    _textFiledTypeTypedefs.remove(value);
+    //呼叫所有监听的人进行重新绘制
+    notifyListeners();
+  }
+}
+
+class TextFiledTypeControllerTypedef {
+  /// textFiledType
+  late TextFiledType textFiledType;
+
+  /// controller
+  late TextEditingController controller;
+
+  /// 构造方法
+  TextFiledTypeControllerTypedef(
+      {required this.controller, required this.textFiledType});
+}
+
+class TextFiledType extends StatefulWidget {
+  const TextFiledType(
       {super.key,
       this.label,
       this.hintText,
       this.endWidget,
       this.keyboardType,
-      this.padding = const EdgeInsets.symmetric(horizontal: 15),
-      this.hintStyle = const TextStyle(color: Colors.grey)});
+      required this.controller,
+      this.padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      this.hintStyle = const TextStyle(
+          color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w300)});
 
   /// label
   final Widget? label;
@@ -72,11 +172,14 @@ class _TextFiledType extends StatefulWidget {
 
   /// padding
   final EdgeInsetsGeometry padding;
+
+  /// controller
+  final TextEditingController controller;
   @override
-  State<_TextFiledType> createState() => _TextFiledTypeState();
+  State<TextFiledType> createState() => _TextFiledTypeState();
 }
 
-class _TextFiledTypeState extends State<_TextFiledType> {
+class _TextFiledTypeState extends State<TextFiledType> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -85,6 +188,7 @@ class _TextFiledTypeState extends State<_TextFiledType> {
         children: [
           Expanded(
             child: TextField(
+              controller: widget.controller,
               keyboardType: widget.keyboardType,
               textAlign: TextAlign.end,
               decoration: InputDecoration(
