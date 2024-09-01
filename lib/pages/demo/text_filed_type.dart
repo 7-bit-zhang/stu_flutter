@@ -107,7 +107,7 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
                   ],
                 )),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           GestureDetector(
             onTap: () {
               widget.controller.remove("1");
