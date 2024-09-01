@@ -234,3 +234,95 @@ class _TextFiledTypeWidgetState extends State<TextFiledTypeWidget> {
     );
   }
 }
+
+class FrogColor extends InheritedWidget {
+  const FrogColor({
+    super.key,
+    required this.color,
+    required super.child,
+  });
+
+  final Color color;
+
+  static FrogColor? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<FrogColor>();
+  }
+
+  static FrogColor of(BuildContext context) {
+    final FrogColor? result = maybeOf(context);
+    assert(result != null, 'No FrogColor found in context');
+    return result!;
+  }
+
+  @override
+  bool updateShouldNotify(FrogColor oldWidget) => color != oldWidget.color;
+}
+
+class CounterProvider extends InheritedNotifier<ValueNotifier<int>> {
+  const CounterProvider(
+      {Key? key, required Widget child, required this.counter})
+      : super(key: key, child: child);
+
+  final ValueNotifier<int> counter;
+
+  static CounterProvider of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<CounterProvider>()!;
+  }
+}
+
+class CounterController with ChangeNotifier {
+  int _count = 0;
+  int get count => _count;
+
+  void increment() {
+    _count++;
+    notifyListeners();
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('ValueNotifier & InheritedNotifier Example'),
+        ),
+        body: const CounterWidget(),
+      ),
+    );
+  }
+}
+
+class CounterWidget extends StatelessWidget {
+  const CounterWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CounterProvider(
+      counter: ValueNotifier<int>(0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('You have pushed the button this many times:'),
+          ValueListenableBuilder(
+            valueListenable: CounterProvider.of(context).counter,
+            builder: (context, int value, child) {
+              return Text(
+                value.toString(),
+              );
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              CounterProvider.of(context).counter.value++;
+            },
+            child: const Text('Increment'),
+          ),
+        ],
+      ),
+    );
+  }
+}
