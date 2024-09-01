@@ -107,6 +107,28 @@ class _TextFiledTypeExampleState extends State<TextFiledTypeExample> {
                   ],
                 )),
           ),
+          SizedBox(height: 20),
+          GestureDetector(
+            onTap: () {
+              widget.controller.remove("1");
+            },
+            child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: const Color(0xffdfebff),
+                    borderRadius: BorderRadius.circular(12)),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add, color: Color(0xff5091fd)),
+                    Text(
+                      "删除key1",
+                      style: TextStyle(color: Color(0xff5091fd)),
+                    )
+                  ],
+                )),
+          ),
         ],
       )),
     );
