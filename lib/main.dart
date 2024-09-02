@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:study_demo/frame.dart';
 import 'package:study_demo/pages/theme/theme_style.dart';
 
@@ -34,6 +35,7 @@ void demo() {
 
 void main() {
   TextInputBinding();
+  //Provider.debugCheckInvalidValueType = null;
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
   //     overlays: []);
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
           theme: state,
           home: const FramePage(),
           builder: EasyLoading.init(),
+          // navigatorObservers: [FlutterSmartDialog.observer],
+          // builder: FlutterSmartDialog.init(),
         );
       },
     );

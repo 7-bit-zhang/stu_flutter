@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:study_demo/main.dart';
 import 'package:study_demo/pages/Hero/List_page.dart';
 import 'package:study_demo/pages/QQ/qq_frame.dart';
 import 'package:study_demo/pages/demo/AnimatedContainer_page.dart';
@@ -61,6 +63,16 @@ class FramePage extends StatelessWidget {
         toolbarHeight: 0,
         elevation: 0,
       ),
+      // floatingActionButton: ChangeNotifierProvider<Test>(
+      //   create: (_) => Test(),
+      //   child: Consumer<Test>(
+      //     builder: (BuildContext context, value, Widget? child) {
+      //       return FloatingActionButton(onPressed: () {
+      //         // print(Provider.of<Test>(context).counter);
+      //       });
+      //     },
+      //   ),
+      // ),
       body: PopScope(
         onPopInvokedWithResult: (b, d) async {
           await AndroidCall.backDesktop();
