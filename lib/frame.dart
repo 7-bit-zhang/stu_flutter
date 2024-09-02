@@ -45,6 +45,7 @@ import 'package:study_demo/pages/kirsch/kirsch.dart';
 import 'package:study_demo/pages/sliver/page.dart';
 import 'package:study_demo/pages/theme/themeDemo.dart';
 import 'package:study_demo/pages/web.dart';
+import 'package:study_demo/provide_page/provide_page.dart';
 import 'package:study_demo/theme.dart';
 import 'package:study_demo/web3demo/android_call.dart';
 import 'package:study_demo/web3demo/web_page.dart';
@@ -84,6 +85,8 @@ class FramePage extends StatelessWidget {
                       backgroundColor: myColors.brandColor,
                     ),
                     body: qtItem())),
+            const SizedBox(height: 20),
+            getItem("Provide", const ProvidePage()),
             const SizedBox(height: 20),
             getItem("UI分享", const WebPage()),
             const SizedBox(height: 20),
