@@ -162,7 +162,7 @@ class FramePage extends StatelessWidget {
           const SizedBox(height: 20),
           getItem("放大镜", const MagnifierPage()),
           const SizedBox(height: 20),
-          getItem("APP挂起后台模糊(安卓无效)", const BindingObserverPage()),
+          getItem("APP挂起后台模糊", const BindingObserverPage()),
           const SizedBox(height: 20),
           getItem(
               "AnimatedContainer-简单动画效果(隐式)", const AnimatedContainerPage()),

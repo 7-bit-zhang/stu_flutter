@@ -21,9 +21,9 @@ class _BindingObserverPageState extends State<BindingObserverPage>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
+    ishidden = state != AppLifecycleState.resumed;
     setState(() {
       debugPrint("state=$state");
-      ishidden = state != AppLifecycleState.resumed;
     });
   }
 
@@ -36,7 +36,7 @@ class _BindingObserverPageState extends State<BindingObserverPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: StudyAppBar.MyAppBar("后台挂起页面模糊（安卓无效）-Demo", context),
+      appBar: StudyAppBar.MyAppBar("后台挂起页面模糊-Demo", context),
       body: !ishidden
           ? Image.asset("assets/images/girl.jpg")
           : ImageFiltered(
